@@ -7,6 +7,7 @@
 ```shell
 PROJECT=model-namespace
 oc apply -f Qwen3_6-35B-A3B-FP8.yaml -n $PROJECT
+oc apply -f ../model-token-service-account -n $PROJECT
 ```
 (This might take a while)
 
@@ -18,8 +19,7 @@ oc apply -f Qwen3_6-35B-A3B-FP8.yaml -n $PROJECT
 export CLAUDE_CODE_USE_VERTEX=0 
 
 # set up routing to your hosted model
-PROJECT=model-namespace
-export ANTHROPIC_AUTH_TOKEN=$(oc whoami -t) 
+export ANTHROPIC_AUTH_TOKEN=$(oc get secret model-token-service-account-token -n $PROJECT -o jsonpath='{.data.token}' | base64 --decode)
 export ANTHROPIC_BASE_URL=https://$(oc get route qwen36-fp8 -n $PROJECT -o jsonpath='{.spec.host}')
 export ANTHROPIC_MODEL="qwen36-fp8"
 export ANTHROPIC_SMALL_FAST_MODEL="qwen36-fp8"
