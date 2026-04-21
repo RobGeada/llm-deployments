@@ -25,6 +25,8 @@ export ANTHROPIC_MODEL="qwen36-fp8"
 export ANTHROPIC_SMALL_FAST_MODEL="qwen36-fp8"
 ```
 
+If you've got an environment config set in your `~/.claude/settings.json`, you'll need to clear this to avoid variable conflicts. Make sure to take a backup so you can swap between the Anthropic models and the self-hosted one. 
+
 
 ## Test model connectivity
 ```shell
